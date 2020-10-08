@@ -1,0 +1,4 @@
+GET http://localhost:8080/crosswind?runway=150&wind_direction=180&wind_knots=10
+
+###
+GET https://aviation.klaassen.click/crosswind?runway=150&wind_direction=180&wind_knots=10
