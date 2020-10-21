@@ -1,3 +1,7 @@
-# crosswind-api project
+# aviation-api project
 
-Quarkus Crosswind Calculator API
+Quarkus Aviation API
+
+* Crosswind Calculator
+* WCA Calculator
+
