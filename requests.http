@@ -2,3 +2,6 @@ GET {{api-url}}/crosswind?runway=150&wind_direction=180&wind_knots=10
 
 ###
 GET {{api-url}}/wca?tc=270&tas=140&wind_direction=320&wind_knots=20
+
+###
+GET {{api-url}}/swagger-ui
