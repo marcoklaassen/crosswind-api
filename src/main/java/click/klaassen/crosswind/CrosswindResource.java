@@ -1,5 +1,6 @@
 package click.klaassen.crosswind;
 
+import static click.klaassen.crosswind.Direction.*;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.eclipse.microprofile.metrics.MetricUnits.MILLISECONDS;
 
@@ -29,8 +30,10 @@ public class CrosswindResource {
       @QueryParam("runway") int runway,
       @QueryParam("wind_direction") int windDirection,
       @QueryParam("wind_knots") int windKnots) {
+    int crosswind = service.calculateCrosswind(runway, windDirection, windKnots);
     return Crosswind.builder()
-        .knots(service.calculateCrosswind(runway, windDirection, windKnots))
+        .knots(Math.abs(crosswind))
+        .direction(crosswind > 0 ? LEFT : RIGHT)
         .build();
   }
 }

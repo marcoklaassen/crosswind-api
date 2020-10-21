@@ -1,39 +1,33 @@
 package click.klaassen.wca;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @QuarkusTest
 class WindCorrectionAngleResourceTest {
 
-  @Test
-  void calculateWindCorrectionAngleNegative() {
+  @ParameterizedTest
+  // tc, tas, wind direction, wind knots, expected wca
+  @CsvSource({
+    "359, 110, 270, 18, -10",
+    "180, 98, 210, 12, 4",
+    "270, 140, 320, 20, 7",
+  })
+  void calculateWindCorrectionAngle(
+      int trueCourse, int trueAirSpeed, int windDirection, int windKnots, int expectedWca) {
     given()
-            .queryParam("tc", 359)
-            .queryParam("tas", 110)
-            .queryParam("wind_direction", 270)
-            .queryParam("wind_knots", 18)
-            .when()
-            .get("/wca")
-            .then()
-            .statusCode(200)
-            .body("windCorrectionAngle", is(-10));
-  }
-
-  @Test
-  void calculateWindCorrectionAnglePositive() {
-    given()
-            .queryParam("tc", 180)
-            .queryParam("tas", 98)
-            .queryParam("wind_direction", 210)
-            .queryParam("wind_knots", 12)
-            .when()
-            .get("/wca")
-            .then()
-            .statusCode(200)
-            .body("windCorrectionAngle", is(4));
+        .queryParam("tc", trueCourse)
+        .queryParam("tas", trueAirSpeed)
+        .queryParam("wind_direction", windDirection)
+        .queryParam("wind_knots", windKnots)
+        .when()
+        .get("/wca")
+        .then()
+        .statusCode(200)
+        .body("windCorrectionAngle", is(expectedWca));
   }
 }

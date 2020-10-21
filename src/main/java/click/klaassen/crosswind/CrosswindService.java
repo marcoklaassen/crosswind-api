@@ -12,7 +12,6 @@ class CrosswindService {
   int calculateCrosswind(int runway, int windDirection, int windKnots) {
     return new BigDecimal(windKnots * sin(toRadians(runway - windDirection)))
         .setScale(0, RoundingMode.UP)
-        .abs()
         .intValue();
   }
 }

@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class WindCorrection {
   private int windCorrectionAngle;
-//  private int groundSpeed;
+  //  private int groundSpeed;
 }

@@ -7,4 +7,5 @@ import lombok.Data;
 @Builder
 public class Crosswind {
   private int knots;
+  private Direction direction;
 }
